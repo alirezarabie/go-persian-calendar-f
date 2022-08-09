@@ -1002,11 +1002,11 @@ func (t Time) TimeFormat(format string) string {
 		"{ss}", fmt.Sprintf("%02d", t.sec),
 		"{s}", strconv.Itoa(t.sec),
 		"{ns}", "." + strconv.Itoa(t.nsec),
-		"{ms}", "." + strconv.Itoa(t.nsec)[:6],
-		"{mls}", "." + strconv.Itoa(t.nsec)[:3],
+		"{ms}", "." + t.nsecSanitize(6)[:6],
+		"{mls}", "." + t.nsecSanitize(3)[:3],
 		"{nst}", strings.TrimRight("."+strconv.Itoa(t.nsec), "0"),
-		"{mst}", strings.TrimRight("."+strconv.Itoa(t.nsec)[:6], "0"),
-		"{mlst}", strings.TrimRight("."+strconv.Itoa(t.nsec)[:3], "0"),
+		"{mst}", strings.TrimRight("."+t.nsecSanitize(6)[:6], "0"),
+		"{mlst}", strings.TrimRight("."+t.nsecSanitize(3)[:3], "0"),
 		"{AFTER}", t.AmPm().String(),
 		"{after}", t.AmPm().Short(),
 		"{LOC}", t.loc.String(),
@@ -1135,4 +1135,17 @@ func getWeekday(wd time.Weekday) Weekday {
 
 func (t *Time) resetWeekday() {
 	t.wday = getWeekday(t.Time().Weekday())
+}
+
+//nsecSanitize check length of nsec if it is less than l add "0" to it
+func (t *Time) nsecSanitize(l int) string {
+	//strconv.Itoa(t.nsec)[:6]
+	ns := strconv.Itoa(t.nsec)
+	nl := len(ns)
+	if nl < l {
+		for i := 0; i < nl-l; i++ {
+			ns = ns + "0"
+		}
+	}
+	return ns
 }
