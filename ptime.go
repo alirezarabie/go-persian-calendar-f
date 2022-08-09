@@ -1143,7 +1143,7 @@ func (t *Time) nsecSanitize(l int) string {
 	ns := strconv.Itoa(t.nsec)
 	nl := len(ns)
 	if nl < l {
-		for i := 0; i < nl-l; i++ {
+		for i := 0; i < l-nl; i++ {
 			ns = ns + "0"
 		}
 	}
