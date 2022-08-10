@@ -7,7 +7,7 @@
 ## Installation
 
 ```bash
-go get github.com/yaa110/go-persian-calendar
+go get github.com/alirezarabie/go-persian-calendar-f
 ```
 
 ## Getting started
@@ -16,7 +16,7 @@ go get github.com/yaa110/go-persian-calendar
 
 ```go
 import (
-    ptime "github.com/yaa110/go-persian-calendar"
+    ptime "github.com/alirezarabie/go-persian-calendar-f"
     "time"
     "fmt"
 )
